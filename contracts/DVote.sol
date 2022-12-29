@@ -9,7 +9,15 @@ contract DVote is Ownable{
     using Counters for Counters.Counter;
 
     Counters.Counter public candidateId;
+    uint256 public startsAt;
+    uint256 public endsAt;
     mapping(uint256 => address) public candidateAddress;
+    address[] public _test;
+
+    constructor(uint256 _startsAt, uint256 _endsAt){
+        startsAt = block.timestamp + _startsAt;
+        endsAt = block.timestamp + _endsAt;
+    }
 
     function createCandidate(string memory ipfsDescription) public onlyOwner{
         Candidate candidate = new Candidate(candidateId.current(), ipfsDescription);
